@@ -1,0 +1,261 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: url('Images/Senate.png') no-repeat center center/cover;
+  min-height: 100vh;
+  display: flex;
+  color: #fff;
+}
+
+/* Glassmorphism Sidebar */
+.sidebar {
+  width: 280px;
+  background: linear-gradient(to right bottom, rgba(229, 233, 230, 0.485), rgba(232, 235, 232, 0.36));
+  backdrop-filter: blur(0.2rem);
+  -webkit-backdrop-filter: blur(0.2rem);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+/* Top Bar Row Header */
+.top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.sidebar-header img {
+  height: 55px;
+}
+
+.sidebar-header h2 {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+/* Top-Right Logout Button */
+.logout-link {
+  text-decoration: none;
+  color: #fff;
+  background: #800020;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.logout-link:hover {
+  color: #800020;
+  background: #ffffff;
+}
+
+/* Single Row Navigation Buttons */
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 0.4rem;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.nav-links li {
+  flex: 1;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.6rem 0.3rem;
+  border-radius: 0.8rem;
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: #800020;
+  color: #fff;
+}
+
+/* Main Content Area */
+.main-content {
+  margin-left: 280px;
+  flex: 1;
+  padding: 2rem;
+}
+
+.content-card {
+  display: none; 
+  background: linear-gradient(to right bottom, rgba(229, 233, 230, 0.485), rgba(232, 235, 232, 0.36));
+  backdrop-filter: blur(0.2rem);
+  -webkit-backdrop-filter: blur(0.2rem);
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 800px;
+}
+
+.content-card.active {
+  display: block;
+}
+
+.content-card h1 {
+  color: #fff;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.status-badge {
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  color: #f0f0f0;
+}
+
+.ballot-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 500px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+select {
+  background: rgba(255, 255, 255, 0.714);
+  border: none;
+  outline: none;
+  padding: 0.8rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn {
+  background: #800020;
+  color: rgb(244, 241, 241);
+  border: none;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  margin-top: 0.5rem;
+  width: 50%;
+}
+
+.btn:hover {
+  color: #800020;
+  background: linear-gradient(to right top, #fcfdfd, #f5f3f3);
+}
+
+.result-box, .profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  font-size: 1rem;
+}
+
+.success {
+  color: #2ecc71;
+  font-weight: 600;
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE RULES (Max Width: 768px)
+   ========================================================= */
+@media screen and (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem;
+  }
+
+  .top-row {
+    margin-bottom: 0.8rem;
+  }
+
+  .sidebar-header img {
+    height: 48px;
+  }
+
+  .sidebar-header h2 {
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.3rem;
+  }
+
+  .nav-links a {
+    padding: 0.5rem 0.2rem;
+    font-size: 0.7rem;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .content-card {
+    padding: 1.2rem;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 1rem;
+  }
+
+  .content-card h1 {
+    font-size: 1.3rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

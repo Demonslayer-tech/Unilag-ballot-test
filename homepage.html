@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UNILAG Hostel Portal</title>
+    <link rel="stylesheet" href="style2.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Navigation / Sidebar Area -->
+    <aside class="sidebar">
+      <div class="top-row">
+        <div class="sidebar-header">
+          <img src="Images/Gemini_Generated_Image_i6mwdni6mwdni6mw-removebg-preview.png" alt="UNILAG Logo" />
+          <h2>UNILAG</h2>
+        </div>
+        <a href="index.html" class="logout-link">Log Out</a>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#" class="nav-btn active" data-target="apply">Apply / Edit Application</a></li>
+        <li><a href="#" class="nav-btn" data-target="results">Ballot Results</a></li>
+        <li><a href="#" class="nav-btn" data-target="profile">Profile Details</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Display Cards -->
+    <main class="main-content">
+      <!-- Apply / Edit Application Section -->
+      <section id="apply" class="content-card active">
+        <h1>Hostel Balloting Application</h1>
+        <p class="status-badge">Application Status: <span>Draft / Submitted</span></p>
+
+        <form class="ballot-form">
+          <div class="form-group">
+            <label for="app-year">Application Year / Session</label>
+            <select id="app-year" name="app_year" required>
+              <option value="" disabled selected>-- Select Academic Session --</option>
+              <option value="2025/2026">2025/2026 Academic Session</option>
+              <option value="2026/2027">2026/2027 Academic Session</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="hostel">Select Preferred Hostel</label>
+            <select id="hostel" name="hostel" required>
+              <option value="" disabled selected>-- Select Hostel --</option>
+              <option value="jaja">King Jaja Hall (Male)</option>
+              <option value="moremi">Queen Moremi Hall (Female)</option>
+              <option value="mariere">Mariere Hall (Male)</option>
+              <option value="amina">Queen Amina Hall (Female)</option>
+              <option value="eni-njoku">Eni-Njoku Hall (Male)</option>
+              <option value="kofo">Kofo Ademola Hall (Female)</option>
+              <option value="biobaku">Biobaku Hall (Male)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="room-type">Type of Room</label>
+            <select id="room-type" name="room_type" required>
+              <option value="" disabled selected>-- Select Room Type --</option>
+              <option value="2-man">2-Man Room</option>
+              <option value="4-man">4-Man Room</option>
+              <option value="6-man">6-Man Room</option>
+              <option value="8-man">8-Man Room</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="block">Preferred Block/Level</label>
+            <select id="block" name="block">
+              <option value="any">Any Available Block</option>
+              <option value="block-a">Block A</option>
+              <option value="block-b">Block B</option>
+              <option value="block-c">Block C</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="disability">Do you have any physical disability?</label>
+            <select id="disability" name="disability" required>
+              <option value="no">No</option>
+              <option value="mobility">Yes - Physical / Mobility Impairment</option>
+              <option value="visual">Yes - Visual Impairment</option>
+              <option value="hearing">Yes - Hearing Impairment</option>
+              <option value="other">Yes - Other Disability</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="health-issue">Do you have any medical condition/health issue?</label>
+            <select id="health-issue" name="health_issue" required>
+              <option value="none">None</option>
+              <option value="asthma">Asthma / Respiratory Conditions</option>
+              <option value="epilepsy">Epilepsy / Seizure Disorder</option>
+              <option value="allergies">Severe Allergies</option>
+              <option value="chronic">Other Chronic Medical Conditions</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn">Update & Save Application</button>
+        </form>
+      </section>
+
+      <!-- Ballot Results Section -->
+      <section id="results" class="content-card">
+        <h1>Ballot Status & Results</h1>
+        <div class="result-box">
+          <p><strong>Allocated Hostel:</strong> King Jaja Hall</p>
+          <p><strong>Room Number:</strong> Block A, Room 102</p>
+          <p><strong>Status:</strong> <span class="success">Allocated</span></p>
+        </div>
+      </section>
+
+      <!-- Profile Details Section -->
+      <section id="profile" class="content-card">
+        <h1>Student Profile</h1>
+        <div class="profile-info">
+          <p><strong>Full Name:</strong> John Doe</p>
+          <p><strong>Matric No:</strong> 190407000</p>
+          <p><strong>Department:</strong> Computer Science</p>
+          <p><strong>Level:</strong> 400L</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Script for Dynamic Card Switching -->
+    <script>
+      const navButtons = document.querySelectorAll('.nav-btn');
+      const contentCards = document.querySelectorAll('.content-card');
+
+      navButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          navButtons.forEach(btn => btn.classList.remove('active'));
+          contentCards.forEach(card => card.classList.remove('active'));
+
+          button.classList.add('active');
+          const targetId = button.getAttribute('data-target');
+          document.getElementById(targetId).classList.add('active');
+        });
+      });
+    </script>
+  </body>
+</html>

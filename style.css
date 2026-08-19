@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('./Images/Senate.png') no-repeat center center/cover;
+ 
+}
+.glass {
+  background: linear-gradient(to right bottom, rgba(229, 233, 230, 0.485), rgba(232, 235, 232, 0.36));
+  border-radius: 1.5rem;
+  z-index: 2;
+  backdrop-filter: blur(0.2rem);
+  padding: 8rem;
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+}
+
+h1 {
+  color:white;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+input {
+  background: rgba(255, 255, 255, 0.714);
+  border: none;
+  outline: none;
+  padding: 0.8rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+}
+
+button {
+  background: #800020 ;
+  color: rgb(244, 241, 241);
+  border: none;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(2rem);
+  width: 50%;
+}
+
+button:hover {
+  color: #800020 ;
+  background: linear-gradient(to right top, #fcfdfd, #f5f3f3);
+}
+
+.logo-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.form-logo {
+  max-width: 400px;
+  height: auto;
+  display: inline-block;
+}
+
+.unilag-title {
+  font-size: 2.5rem;
+  color: #fcfbfb;
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
