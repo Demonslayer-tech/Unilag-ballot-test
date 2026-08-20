@@ -24,6 +24,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  border-radius: 1.5rem;
   position: fixed;
   border-right: 1px solid rgba(255, 255, 255, 0.2);
   z-index: 10;
@@ -249,14 +250,9 @@ select {
   }
 
   .sidebar-header img {
-    height: 40px;
+    height: 60px;
   }
 
-  .sidebar-header h2 {
-    font-size: 1.1rem;
-  }
-
-  /* Convert navigation links into a horizontal scroll bar */
   .nav-links {
     flex-direction: row;
     overflow-x: auto;
