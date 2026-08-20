@@ -11,8 +11,8 @@ main {
   align-items: center;
   justify-content: center;
   background: url('./Images/Senate.png') no-repeat center center/cover;
- 
 }
+
 .glass {
   background: linear-gradient(to right bottom, rgba(229, 233, 230, 0.485), rgba(232, 235, 232, 0.36));
   border-radius: 1.5rem;
@@ -79,4 +79,27 @@ button:hover {
   color: #fcfbfb;
   margin-top: 10px;
   margin-bottom: 2px;
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE RULES (Max Width: 768px)
+   ========================================================= */
+@media screen and (max-width: 768px) {
+  .glass {
+    padding: 3rem 1.5rem; /* Reduces massive padding on mobile */
+    width: 90%; /* Ensures it doesn't touch the edges of the screen */
+    margin: 1rem;
+  }
+  
+  .unilag-title {
+    font-size: 1.8rem; /* Scales down the massive title */
+  }
+  
+  .form-logo {
+    max-width: 200px; /* Scales down the logo */
+  }
+  
+  button {
+    width: 100%; /* Makes the sign in button full width for easier tapping */
+  }
 }

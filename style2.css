@@ -43,7 +43,7 @@ body {
 }
 
 .sidebar-header img {
-  height: 55px;
+  height: 60px;
 }
 
 .sidebar-header h2 {
@@ -57,7 +57,7 @@ body {
   color: #fff;
   background: #800020;
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   padding: 0.4rem 0.7rem;
   border-radius: 0.5rem;
   text-align: center;
@@ -74,7 +74,7 @@ body {
 .nav-links {
   list-style: none;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 0.4rem;
   width: 100%;
   overflow-x: auto;
@@ -228,8 +228,7 @@ select {
   }
 
   .nav-links {
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 0.3rem;
   }
 
@@ -258,4 +257,12 @@ select {
   .btn {
     width: 100%;
   }
+}
+
+.sidebar-header h2 {
+  color: #800020;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  padding-left: 0.5rem;
 }
