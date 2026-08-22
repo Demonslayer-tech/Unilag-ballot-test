@@ -4,48 +4,67 @@
   box-sizing: border-box;
 }
 
-body, main {
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
   font-family: "Roboto", sans-serif;
-  min-height: 100vh;
+  background: url('Images/Senate.png') no-repeat center center/cover fixed;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('./Images/Senate.png') no-repeat center center/cover fixed;
+  min-height: 100vh;
+  color: #fff;
+  overflow-x: hidden;
 }
 
-/* Glass Card Styling */
+main {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+/* Centered Glassmorphism Card */
 .glass {
-  background: linear-gradient(to right bottom, rgba(229, 233, 230, 0.485), rgba(232, 235, 232, 0.36));
+  background: linear-gradient(to right bottom, rgba(229, 233, 230, 0.45), rgba(232, 235, 232, 0.25));
+  backdrop-filter: blur(0.5rem);
+  -webkit-backdrop-filter: blur(0.5rem);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  z-index: 2;
-  backdrop-filter: blur(0.4rem);
-  -webkit-backdrop-filter: blur(0.4rem);
   padding: 2.5rem 2rem;
-  width: 90%;
-  max-width: 440px;
+  width: 100%;
+  max-width: 420px;
   text-align: center;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Header & Logo */
 .logo-header {
-  text-align: center;
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.6rem;
 }
 
 .form-logo {
-  max-width: 110px;
+  max-width: 200px;
   height: auto;
-  display: inline-block;
-  margin-bottom: 0.5rem;
+  display: block;
+  margin-bottom: 0.6rem;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
 }
 
 .unilag-title {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 600;
   color: #ffffff;
   letter-spacing: 0.5px;
   margin-bottom: 0.2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .portal-subtitle {
@@ -54,10 +73,18 @@ body, main {
   opacity: 0.9;
 }
 
+.glass h1 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 1.2rem;
+}
+
+/* Form Controls */
 form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.1rem;
+  width: 100%;
 }
 
 .input-group {
@@ -66,40 +93,52 @@ form {
 
 input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid transparent;
   outline: none;
-  padding: 0.85rem 1.2rem;
+  padding: 0.85rem 1.1rem;
   border-radius: 0.8rem;
   font-size: 0.95rem;
-  color: #333;
+  color: #222;
   transition: all 0.3s ease;
 }
 
-/* Interactive Input Focus */
-input:focus {
-  background: rgba(255, 255, 255, 0.98);
-  border-color: #800020;
-  box-shadow: 0 0 8px rgba(128, 0, 32, 0.3);
+input::placeholder {
+  color: #666;
 }
 
-.btn-login {
+input:focus {
+  background: #ffffff;
+  border-color: #800020;
+  box-shadow: 0 0 10px rgba(128, 0, 32, 0.35);
+}
+
+/* Buttons & Links */
+button, .btn-login {
+  width: 100%;
   background: #800020;
   color: #ffffff;
   border: none;
   padding: 0.85rem;
   border-radius: 0.8rem;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
+  box-shadow: 0 4px 12px rgba(128, 0, 32, 0.3);
 }
 
-.btn-login:hover {
+button:hover, .btn-login:hover {
   background: #ffffff;
   color: #800020;
+  transform: translateY(-2px);
+}
+
+form a {
+  text-decoration: none;
+  width: 100%;
+  display: block;
 }
 
 .form-footer {
@@ -115,34 +154,41 @@ input:focus {
 
 .forgot-pass:hover {
   text-decoration: underline;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 /* =========================================================
-   RESPONSIVE BREAKPOINTS
+   MOBILE RESPONSIVE BREAKPOINTS
    ========================================================= */
 
-/* Tablets (769px to 1024px) */
-@media screen and (max-width: 1024px) {
-  .glass {
-    max-width: 420px;
-    padding: 2.2rem 1.8rem;
-  }
-}
-
-/* Mobile Devices (max 768px) */
 @media screen and (max-width: 768px) {
   .glass {
     padding: 2rem 1.5rem;
-    width: 92%;
+    max-width: 90%;
     border-radius: 1.2rem;
   }
-  
+
   .unilag-title {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
-  
+
   .form-logo {
-    max-width: 90px;
+    max-width: 85px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  main {
+    padding: 1rem;
+  }
+
+  .glass {
+    padding: 1.8rem 1.2rem;
+    max-width: 100%;
+  }
+
+  input, button, .btn-login {
+    padding: 0.8rem;
+    font-size: 0.9rem;
   }
 }
