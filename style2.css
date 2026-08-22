@@ -198,7 +198,7 @@ select:focus {
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: #1e8449;
+  background: #1e8449d0;
   color: #ffffff;
   padding: 1rem 1.4rem;
   border-radius: 1rem;
