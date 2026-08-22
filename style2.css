@@ -4,12 +4,31 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100%;
+  width: 100%;
+}
+
 body {
   font-family: "Roboto", sans-serif;
-  background: url('Images/Senate.png') no-repeat center center/cover fixed;
   min-height: 100vh;
   display: flex;
   color: #fff;
+  position: relative;
+  background-color: #1a0006; /* Fallback theme background */
+}
+
+/* Fixed background pseudo-element fix for mobile browsers */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('Images/Senate.png') no-repeat center center / cover;
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* =========================================================
@@ -189,7 +208,7 @@ select:focus {
   background: #ffffff;
 }
 
-/* --- NEW FLOATING TOAST NOTIFICATION PROMPT --- */
+/* Floating Toast Notification Prompt */
 .toast-success {
   position: fixed;
   top: 20px;
@@ -198,7 +217,7 @@ select:focus {
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: #1e8449d0;
+  background: #1e8449;
   color: #ffffff;
   padding: 1rem 1.4rem;
   border-radius: 1rem;
@@ -235,7 +254,7 @@ select:focus {
   margin: 0;
 }
 
-/* --- ENHANCED INFO BOXES FOR RESULTS & PROFILE --- */
+/* Info Boxes for Results & Profile */
 .info-grid {
   display: flex;
   flex-direction: column;
@@ -247,7 +266,6 @@ select:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* Darker, higher-contrast background so values pop */
   background: rgba(20, 20, 20, 0.45);
   padding: 1.1rem 1.4rem;
   border-radius: 1rem;
@@ -274,7 +292,7 @@ select:focus {
 
 .info-value.success {
   color: #ffffff;
-  background: linear-gradient(to right bottom, rgba(39, 174, 95, 0.24), rgba(46, 204, 112, 0.24));
+  background: #27ae60;
   font-weight: 600;
   padding: 0.4rem 1rem;
   border-radius: 0.6rem;
@@ -315,6 +333,7 @@ select:focus {
 @media screen and (max-width: 768px) {
   body {
     flex-direction: column;
+    min-height: 100vh;
   }
 
   .sidebar {
