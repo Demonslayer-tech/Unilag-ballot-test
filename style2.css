@@ -15,7 +15,7 @@ body {
   display: flex;
   color: #fff;
   position: relative;
-  background-color: #1a0006; /* Fallback theme background */
+  background-color: #1a0006;
 }
 
 /* Fixed background pseudo-element fix for mobile browsers */
@@ -208,7 +208,6 @@ select:focus {
   background: #ffffff;
 }
 
-/* Floating Toast Notification Prompt */
 .toast-success {
   position: fixed;
   top: 20px;
@@ -254,7 +253,6 @@ select:focus {
   margin: 0;
 }
 
-/* Info Boxes for Results & Profile */
 .info-grid {
   display: flex;
   flex-direction: column;
