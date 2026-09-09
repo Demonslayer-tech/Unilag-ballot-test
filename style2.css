@@ -253,6 +253,55 @@ select:focus {
   margin: 0;
 }
 
+/* Profile Image / Avatar Layout */
+.profile-header {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Hostel Image Card Styling for Results Page */
+.hostel-image-box {
+  width: 100%;
+  height: 220px;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.hostel-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.hostel-image-box:hover img {
+  transform: scale(1.03);
+}
+
 .info-grid {
   display: flex;
   flex-direction: column;
@@ -384,6 +433,15 @@ select:focus {
 
   .content-card h1 {
     font-size: 1.35rem;
+  }
+
+  .profile-avatar {
+    width: 110px;
+    height: 110px;
+  }
+
+  .hostel-image-box {
+    height: 190px;
   }
 
   .toast-success {
