@@ -204,7 +204,7 @@
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        // Update Allocated Hostel Image & Text based on selection
+        // 1. Update Allocated Hostel Image & Text based on selection
         const selectedValue = hostelSelect.value;
         if (selectedValue && hostelsData[selectedValue]) {
           allocatedHostelName.textContent = hostelsData[selectedValue].name;
@@ -212,6 +212,14 @@
           allocatedHostelImg.alt = hostelsData[selectedValue].name;
         }
 
+        // 2. Switch view to Ballot Results tab & content card
+        navButtons.forEach(btn => btn.classList.remove('active'));
+        contentCards.forEach(card => card.classList.remove('active'));
+
+        document.getElementById('results').classList.add('active');
+        document.querySelector('[data-target="results"]').classList.add('active');
+
+        // 3. Display success toast notification
         successPrompt.classList.add('show');
 
         setTimeout(() => {
