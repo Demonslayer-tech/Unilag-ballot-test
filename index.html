@@ -17,14 +17,44 @@
          <h1 class="unilag-title">UNIVERSITY OF LAGOS</h1>
       </div>
         <h1>HOSTEL BALLOTING PORTAL</h1>
-        <form>
-          <input type="email" placeholder="Matric Number" required />
-          <input type="password" placeholder="Password" required />
-          <a href="homepage.html">
-  <button type="button">Sign In</button>
-</a>
+        <p id="login-error" style="color:#100404; font-size:0.85rem; margin-bottom:0.6rem; display:none;"></p>
+        <form id="login-form">
+          <input type="text" id="matric-input" placeholder="Matric Number" required />
+          <input type="password" id="password-input" placeholder="Password" required />
+          <button type="submit" id="login-btn">Sign In</button>
         </form>
       </section>
     </main>
+
+    <script type="module">
+      import { auth, matricToEmail } from "./firebase-config.js";
+      import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+      const loginForm = document.getElementById('login-form');
+      const loginBtn = document.getElementById('login-btn');
+      const errorBox = document.getElementById('login-error');
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorBox.style.display = 'none';
+
+        const matric = document.getElementById('matric-input').value;
+        const password = document.getElementById('password-input').value;
+        const email = matricToEmail(matric);
+
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Signing In...';
+
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+          window.location.href = 'homepage.html';
+        } catch (err) {
+          errorBox.textContent = 'Login failed: invalid matric number or password.';
+          errorBox.style.display = 'block';
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Sign In';
+        }
+      });
+    </script>
   </body>
 </html>

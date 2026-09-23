@@ -125,15 +125,15 @@
           </div>
           <div class="info-item">
             <span class="info-label">Room Number</span>
-            <span class="info-value">Block A, Room 102</span>
+            <span class="info-value" id="allocated-room-number">Block A, Room 102</span>
           </div>
           <div class="info-item">
             <span class="info-label">Check-In Date</span>
-            <span class="info-value">12/9/2026</span>
+            <span class="info-value" id="allocated-checkin-date">12/9/2026</span>
           </div>
           <div class="info-item">
             <span class="info-label">Status</span>
-            <span class="info-value success">Allocated</span>
+            <span class="info-value success" id="allocated-status">Allocated</span>
           </div>
         </div>
       </section>
@@ -225,6 +225,69 @@
         setTimeout(() => {
           successPrompt.classList.remove('show');
         }, 4000);
+      });
+    </script>
+
+    <script type="module">
+      import { auth, db } from "./firebase-config.js";
+      import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+      import { doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+      const form = document.getElementById('application-form');
+      const successPrompt = document.getElementById('success-prompt');
+      const logoutLink = document.querySelector('.logout-link');
+
+      let currentUid = null;
+
+      // Protect this page: only signed-in users may view it.
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = 'index.html';
+          return;
+        }
+        currentUid = user.uid;
+
+        // Load any previously saved application into the form
+        const appSnap = await getDoc(doc(db, 'applications', currentUid));
+        if (appSnap.exists()) {
+          const data = appSnap.data();
+          for (const [key, value] of Object.entries(data)) {
+            const field = form.elements.namedItem(key);
+            if (field) field.value = value;
+          }
+        }
+
+        // Load ballot result, if one has been assigned
+        const resultSnap = await getDoc(doc(db, 'ballotResults', currentUid));
+        if (resultSnap.exists()) {
+          const r = resultSnap.data();
+          if (r.hostelName) document.getElementById('allocated-hostel-name').textContent = r.hostelName;
+          if (r.hostelImage) document.getElementById('allocated-hostel-img').src = r.hostelImage;
+          if (r.roomNumber) document.getElementById('allocated-room-number').textContent = r.roomNumber;
+          if (r.checkInDate) document.getElementById('allocated-checkin-date').textContent = r.checkInDate;
+          if (r.status) document.getElementById('allocated-status').textContent = r.status;
+        }
+      });
+
+      // Save application data to Firestore whenever the existing submit handler runs
+      form.addEventListener('submit', async () => {
+        if (!currentUid) return;
+        const formData = Object.fromEntries(new FormData(form).entries());
+        try {
+          await setDoc(doc(db, 'applications', currentUid), {
+            ...formData,
+            updatedAt: serverTimestamp(),
+          });
+        } catch (err) {
+          console.error('Failed to save application to Firestore:', err);
+        }
+      });
+
+      // Sign out via the existing Log Out link
+      logoutLink.addEventListener('click', async (e) => {
+        e.preventDefault();
+        await signOut(auth);
+        window.location.href = 'index.html';
       });
     </script>
   </body>
