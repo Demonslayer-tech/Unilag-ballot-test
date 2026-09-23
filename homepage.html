@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UNILAG Hostel Balloting Portal</title>
+    <title>UNILAG Hostel Portal</title>
     <link rel="stylesheet" href="style2.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,7 +61,7 @@
               <option value="amina">Queen Amina Hall (Female)</option>
               <option value="eni-njoku">Eni-Njoku Hall (Male)</option>
               <option value="kofo">Kofo Ademola Hall (Female)</option>
-              <option value="femi">Femi Gbajabiamila Hall (Male)</option>
+              <option value="biobaku">Biobaku Hall (Male)</option>
             </select>
           </div>
 
@@ -125,15 +125,15 @@
           </div>
           <div class="info-item">
             <span class="info-label">Room Number</span>
-            <span class="info-value" id="allocated-room-number">Block A, Room 102</span>
+            <span class="info-value">Block A, Room 102</span>
           </div>
           <div class="info-item">
             <span class="info-label">Check-In Date</span>
-            <span class="info-value" id="allocated-checkin-date">12/9/2026</span>
+            <span class="info-value">12/9/2026</span>
           </div>
           <div class="info-item">
             <span class="info-label">Status</span>
-            <span class="info-value success" id="allocated-status">Allocated</span>
+            <span class="info-value success">Allocated</span>
           </div>
         </div>
       </section>
@@ -143,17 +143,17 @@
         <h1>Student Profile</h1>
         <div class="profile-header">
           <div class="profile-avatar">
-            <img src="./Images/studentpicture.jpg" alt="Student Passport Photo" />
+            <img src="./Images/studentpicture.png" alt="Student Passport Photo" />
           </div>
         </div>
         <div class="info-grid">
           <div class="info-item">
             <span class="info-label">Full Name</span>
-            <span class="info-value">Martins Omolu</span>
+            <span class="info-value">John Doe</span>
           </div>
           <div class="info-item">
             <span class="info-label">Matric No</span>
-            <span class="info-value">CSC/2024/1140</span>
+            <span class="info-value">190407000</span>
           </div>
           <div class="info-item">
             <span class="info-label">Department</span>
@@ -161,7 +161,7 @@
           </div>
           <div class="info-item">
             <span class="info-label">Level</span>
-            <span class="info-value">200L</span>
+            <span class="info-value">400L</span>
           </div>
         </div>
       </section>
@@ -187,12 +187,12 @@
       // Hostel Data Mapping for 7 Hostels
       const hostelsData = {
         'jaja': { name: 'King Jaja Hall', image: './Images/jaja.jpg' },
-        'moremi': { name: 'Queen Moremi Hall', image: './Images/moremi-hall.jpg' },
-        'mariere': { name: 'Mariere Hall', image: './Images/mariere-hall.jpg' },
+        'moremi': { name: 'Queen Moremi Hall', image: './Images/moremi.jpg' },
+        'mariere': { name: 'Mariere Hall', image: './Images/mariere.jpg' },
         'amina': { name: 'Queen Amina Hall', image: './Images/amina.jpg' },
         'eni-njoku': { name: 'Eni-Njoku Hall', image: './Images/eni-njoku.jpg' },
         'kofo': { name: 'Kofo Ademola Hall', image: './Images/kofo.jpg' },
-        'femi': { name: 'Femi Gbajabiamila Hall', image: './Images/Femi.jpg' }
+        'biobaku': { name: 'Biobaku Hall', image: './Images/biobaku.jpg' }
       };
 
       const form = document.getElementById('application-form');
@@ -225,69 +225,6 @@
         setTimeout(() => {
           successPrompt.classList.remove('show');
         }, 4000);
-      });
-    </script>
-
-    <script type="module">
-      import { auth, db } from "./firebase-config.js";
-      import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-      import { doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
-      const form = document.getElementById('application-form');
-      const successPrompt = document.getElementById('success-prompt');
-      const logoutLink = document.querySelector('.logout-link');
-
-      let currentUid = null;
-
-      // Protect this page: only signed-in users may view it.
-      onAuthStateChanged(auth, async (user) => {
-        if (!user) {
-          window.location.href = 'index.html';
-          return;
-        }
-        currentUid = user.uid;
-
-        // Load any previously saved application into the form
-        const appSnap = await getDoc(doc(db, 'applications', currentUid));
-        if (appSnap.exists()) {
-          const data = appSnap.data();
-          for (const [key, value] of Object.entries(data)) {
-            const field = form.elements.namedItem(key);
-            if (field) field.value = value;
-          }
-        }
-
-        // Load ballot result, if one has been assigned
-        const resultSnap = await getDoc(doc(db, 'ballotResults', currentUid));
-        if (resultSnap.exists()) {
-          const r = resultSnap.data();
-          if (r.hostelName) document.getElementById('allocated-hostel-name').textContent = r.hostelName;
-          if (r.hostelImage) document.getElementById('allocated-hostel-img').src = r.hostelImage;
-          if (r.roomNumber) document.getElementById('allocated-room-number').textContent = r.roomNumber;
-          if (r.checkInDate) document.getElementById('allocated-checkin-date').textContent = r.checkInDate;
-          if (r.status) document.getElementById('allocated-status').textContent = r.status;
-        }
-      });
-
-      // Save application data to Firestore whenever the existing submit handler runs
-      form.addEventListener('submit', async () => {
-        if (!currentUid) return;
-        const formData = Object.fromEntries(new FormData(form).entries());
-        try {
-          await setDoc(doc(db, 'applications', currentUid), {
-            ...formData,
-            updatedAt: serverTimestamp(),
-          });
-        } catch (err) {
-          console.error('Failed to save application to Firestore:', err);
-        }
-      });
-
-      // Sign out via the existing Log Out link
-      logoutLink.addEventListener('click', async (e) => {
-        e.preventDefault();
-        await signOut(auth);
-        window.location.href = 'index.html';
       });
     </script>
   </body>

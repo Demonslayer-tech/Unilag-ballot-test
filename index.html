@@ -17,44 +17,63 @@
          <h1 class="unilag-title">UNIVERSITY OF LAGOS</h1>
       </div>
         <h1>HOSTEL BALLOTING PORTAL</h1>
-        <p id="login-error" style="color:#100404; font-size:0.85rem; margin-bottom:0.6rem; display:none;"></p>
+        <p id="login-error" role="alert" style="color:#100404; font-size:0.85rem; margin-bottom:0.6rem; display:none;"></p>
         <form id="login-form">
-          <input type="text" id="matric-input" placeholder="Matric Number" required />
-          <input type="password" id="password-input" placeholder="Password" required />
+          <input type="text" id="matric-input" placeholder="Matric Number" autocomplete="username" required />
+          <input type="password" id="password-input" placeholder="Password" autocomplete="current-password" required />
           <button type="submit" id="login-btn">Sign In</button>
         </form>
       </section>
     </main>
 
+    <!-- Classic script: defines window.FIREBASE_CONFIG, window.matricToEmail
+         and window.describeFirebaseError. Loads from file:// as well as http(s)://. -->
+    <script src="./firebase-config.js"></script>
+
     <script type="module">
-      import { auth, matricToEmail } from "./firebase-config.js";
-      import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
       const loginForm = document.getElementById('login-form');
       const loginBtn = document.getElementById('login-btn');
       const errorBox = document.getElementById('login-error');
 
-      loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        errorBox.style.display = 'none';
+      function showError(message) {
+        errorBox.textContent = message;
+        errorBox.style.display = 'block';
+      }
 
-        const matric = document.getElementById('matric-input').value;
-        const password = document.getElementById('password-input').value;
-        const email = matricToEmail(matric);
+      function resetButton() {
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Sign In';
+      }
 
-        loginBtn.disabled = true;
-        loginBtn.textContent = 'Signing In...';
+      if (!window.FIREBASE_CONFIG) {
+        showError('Could not load firebase-config.js. Make sure it sits in the same folder as index.html.');
+      } else {
+        const auth = getAuth(initializeApp(window.FIREBASE_CONFIG));
 
-        try {
-          await signInWithEmailAndPassword(auth, email, password);
-          window.location.href = 'homepage.html';
-        } catch (err) {
-          errorBox.textContent = 'Login failed: invalid matric number or password.';
-          errorBox.style.display = 'block';
-          loginBtn.disabled = false;
-          loginBtn.textContent = 'Sign In';
-        }
-      });
+        loginForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          errorBox.style.display = 'none';
+
+          const matric = document.getElementById('matric-input').value;
+          const password = document.getElementById('password-input').value;
+
+          loginBtn.disabled = true;
+          loginBtn.textContent = 'Signing In...';
+
+          try {
+            await signInWithEmailAndPassword(auth, window.matricToEmail(matric), password);
+            window.location.href = 'homepage.html';
+          } catch (err) {
+            // Report what actually went wrong instead of blaming the password.
+            console.error('Sign-in failed:', err);
+            showError(window.describeFirebaseError(err));
+            resetButton();
+          }
+        });
+      }
     </script>
   </body>
 </html>
